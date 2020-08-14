@@ -10,6 +10,10 @@ import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRep
 import com.mongodb.reactivestreams.client.MongoClient;
 import com.mongodb.reactivestreams.client.MongoClients;
 
+/**
+ *  Activates the reactive support
+ *
+ */
 @Configuration
 @EnableReactiveMongoRepositories(basePackages = "com.garage.dao")
 public class MongoConfig extends AbstractReactiveMongoConfiguration
