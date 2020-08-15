@@ -9,7 +9,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.garage.model.TrafficType;
+import com.garage.model.StatusConstants;
 import com.garage.model.Warehouse;
 import com.garage.service.WarehouseTrafficService;
 
@@ -26,11 +26,15 @@ public class WarehouseDao implements IWarehouseDao {
 	
 	@Autowired
 	private WarehouseTrafficService warehouseTrafficService;
+	
+	@Autowired
+	private StatusConstants statusConstants;
+	
 	private final WebClient webClient;
 	private static final String EXTERNAL_API_PATH = "/b/5ebe673947a2266b1478d892";
 	
 	public WarehouseDao(@Value("${external-service-baseurl}") String baseURL) {
-		this.webClient = WebClient.builder().baseUrl(baseURL).build();
+		this.webClient = WebClient.builder().baseUrl("https://www.googleapis.com/books").build();
 	}
 
 	public Mono<List<Warehouse>> getWarehouses() {
@@ -39,7 +43,7 @@ public class WarehouseDao implements IWarehouseDao {
 				Mono<String> errMsg = response.bodyToMono(String.class);
 				return errMsg.flatMap(msg -> {
 					log.error(msg);
-					warehouseTrafficService.increaseCounter(TrafficType.BAD_REQUEST);
+					warehouseTrafficService.increaseCounter(statusConstants.getBadRequest());
 					return Mono.just(new ArrayList<>());
 				});
 			}
@@ -48,13 +52,13 @@ public class WarehouseDao implements IWarehouseDao {
 				Mono<String> errMsg = response.bodyToMono(String.class);
 				return errMsg.flatMap(msg -> {
 					log.error(msg);
-					warehouseTrafficService.increaseCounter(TrafficType.ERROR);
+					warehouseTrafficService.increaseCounter(statusConstants.getSeerverError());
 					return Mono.just(new ArrayList<>());
 				});
 			}
 			;
 			if (response.statusCode().is2xxSuccessful()) {
-				warehouseTrafficService.increaseCounter(TrafficType.SUCCESS);
+				warehouseTrafficService.increaseCounter(statusConstants.getSuccess());
 			}
 			;
 			return response.bodyToMono(new ParameterizedTypeReference<List<Warehouse>>() {

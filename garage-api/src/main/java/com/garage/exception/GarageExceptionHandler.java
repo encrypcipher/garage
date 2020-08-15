@@ -18,7 +18,7 @@ import com.garage.model.ExceptionResponse;
 public class GarageExceptionHandler {
 	
 	@ExceptionHandler(GarageApiException.class)
-	public final ResponseEntity<?> handleCustomerDetailsApiException(GarageApiException ex, WebRequest request) {
+	public final ResponseEntity<?> handleGarageApiException(GarageApiException ex, WebRequest request) {
 		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(),
 				request.getDescription(false));
 		return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);

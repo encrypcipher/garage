@@ -3,15 +3,13 @@ package com.garage.document;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.garage.model.TrafficType;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
-@Document
+@Document(value = "wearhouseTraffic")
 @Data  
 @NoArgsConstructor
-public class WearhouseTraffic {
+public class WarehouseTraffic {
 	@Id
-	TrafficType trafficType;
-	int count;
+	private String status;
+	private int count;
 }

@@ -1,17 +1,16 @@
 package com.garage.dao;
 
-import java.util.Optional;
-
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
 
-import com.garage.document.WearhouseTraffic;
-import com.garage.model.TrafficType;
+import com.garage.document.WarehouseTraffic;
+
+import reactor.core.publisher.Mono;
 
 @Repository
-public interface IWarehouseTrafficDao extends ReactiveMongoRepository<WearhouseTraffic, Integer> {
+public interface IWarehouseTrafficDao extends ReactiveMongoRepository<WarehouseTraffic, String> {
 	
-	@Query("{ 'tafficType': ?0 }")
-	Optional<WearhouseTraffic>  findByTrafficType(final TrafficType trafficType);
+	@Query("{ 'status': ?0 }")
+	Mono<WarehouseTraffic> findByStatus(final String status);
 }

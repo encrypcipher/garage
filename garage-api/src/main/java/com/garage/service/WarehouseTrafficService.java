@@ -1,19 +1,20 @@
 package com.garage.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.garage.dao.IWarehouseTrafficDao;
-import com.garage.document.WearhouseTraffic;
+import com.garage.document.WarehouseTraffic;
 import com.garage.exception.GarageApiException;
-import com.garage.model.TrafficType;
 import com.garage.model.WarehouseTrafficReq;
 
 import reactor.core.publisher.Mono;
 
+/**
+ * Service class to handle business logic for website traffic
+ *
+ */
 @Service
 public class WarehouseTrafficService implements IWarehouseTrafficService{
 	
@@ -23,60 +24,60 @@ public class WarehouseTrafficService implements IWarehouseTrafficService{
 	private static final int COUNT_ZERO = 0; 
 	
 	@Override
-	public Mono<WearhouseTraffic> increaseCounter(TrafficType trafficType) {
-		Optional<WearhouseTraffic> trafficOptional = warehouseTrafficDao.findByTrafficType(trafficType);
-	    if(trafficOptional.isPresent()){
-	    	WearhouseTraffic wearhouseTraffic = trafficOptional.get();
-	    	wearhouseTraffic.setCount((wearhouseTraffic.getCount()+1));
-	    	return warehouseTrafficDao.save(wearhouseTraffic);
-	    }else{
-	    	WearhouseTraffic w=new WearhouseTraffic();
-	    	w.setTrafficType(trafficType);
-	    	w.setCount(COUNT_ONE);
-	    	return warehouseTrafficDao.save(w);
-	    }
+	public void increaseCounter(String status) {
+		Mono<WarehouseTraffic> traffic = warehouseTrafficDao.findByStatus(status);
+		 traffic
+				.flatMap(wearhouseTraffic -> {
+					wearhouseTraffic.setCount((wearhouseTraffic.getCount()+1));
+					return warehouseTrafficDao.save(wearhouseTraffic);
+				})
+				.switchIfEmpty(initialTrafficSetUp(status)).subscribe();
+	}
+
+	private Mono<WarehouseTraffic> initialTrafficSetUp(String status) {
+		WarehouseTraffic w=new WarehouseTraffic();
+		w.setStatus(status);
+		w.setCount(COUNT_ONE);
+		return warehouseTrafficDao.save(w);
 	}
 	
-	public int claculateCount(WarehouseTrafficReq warehouseTrafficReq) {
+	public Mono<Integer> claculateCount(WarehouseTrafficReq warehouseTrafficReq) {
 		
 		switch (warehouseTrafficReq.getTrafficCountType()) {
 		case MIN:
-			return getMinCount(warehouseTrafficReq.getTrafficType());
+			return getMinCount(warehouseTrafficReq.getStatus());
 		case MAX:
-			return getMaxCount(warehouseTrafficReq.getTrafficType());
+			return getMaxCount(warehouseTrafficReq.getStatus());
 		case AVERAGE:
-			return getAvgCount(warehouseTrafficReq.getTrafficType());
+			return getAvgCount(warehouseTrafficReq.getStatus());
 		default:
 			throw new GarageApiException(HttpStatus.BAD_REQUEST.toString());
 		}
 	  
 	}
 	
-	private int getMinCount(TrafficType trafficType){
-		Optional<WearhouseTraffic> traffic = warehouseTrafficDao.findByTrafficType(trafficType);
-		if(traffic.isPresent()) {
-			return COUNT_ONE;
-		}else {
-			return COUNT_ZERO;
-		}
+	private Mono<Integer> getMinCount(String status){
+		Mono<WarehouseTraffic> traffic = warehouseTrafficDao.findByStatus(status);
+		return traffic.flatMap(input ->{
+			return Mono.just(COUNT_ONE);
+		})
+		.switchIfEmpty(Mono.just(COUNT_ZERO));
 	}
 	
-	private int getMaxCount(TrafficType trafficType){
-		Optional<WearhouseTraffic> traffic = warehouseTrafficDao.findByTrafficType(trafficType);
-		if(traffic.isPresent()) {
-			return traffic.get().getCount();
-		}else {
-			return COUNT_ZERO;
-		}
+	private Mono<Integer> getMaxCount(String status){
+		Mono<WarehouseTraffic> traffic = warehouseTrafficDao.findByStatus(status);
+		return traffic.flatMap(input ->{
+			return Mono.just(input.getCount());
+		})
+		.switchIfEmpty(Mono.just(COUNT_ZERO));
 	}
 	
-	private int getAvgCount(TrafficType trafficType){
-		Optional<WearhouseTraffic> traffic = warehouseTrafficDao.findByTrafficType(trafficType);
-		if(traffic.isPresent()) {
-			return (traffic.get().getCount())/2;
-		}else {
-			return COUNT_ZERO;
-		}
+	private Mono<Integer> getAvgCount(String status){
+		Mono<WarehouseTraffic> traffic = warehouseTrafficDao.findByStatus(status);
+		return traffic.flatMap(input ->{
+			return Mono.just(input.getCount()/2);
+		})
+		.switchIfEmpty(Mono.just(COUNT_ZERO));
 	}
 
 }
