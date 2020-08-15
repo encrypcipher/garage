@@ -20,6 +20,7 @@ public class WarehouseTrafficService implements IWarehouseTrafficService {
 
 	@Autowired
 	private IWarehouseTrafficDao warehouseTrafficDao;
+	
 	private static final int COUNT_ONE = 1;
 	private static final int COUNT_ZERO = 0;
 
@@ -34,7 +35,6 @@ public class WarehouseTrafficService implements IWarehouseTrafficService {
 
 	@Override
 	public Mono<Integer> claculateCount(WarehouseTrafficReq warehouseTrafficReq) {
-
 		switch (warehouseTrafficReq.getTrafficCountType()) {
 		case MIN:
 			return getMinCount(warehouseTrafficReq.getStatus());
@@ -45,7 +45,6 @@ public class WarehouseTrafficService implements IWarehouseTrafficService {
 		default:
 			throw new GarageApiException(HttpStatus.BAD_REQUEST.toString());
 		}
-
 	}
 
 	private Mono<WarehouseTraffic> initialTrafficSetUp(String status) {

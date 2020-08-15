@@ -20,7 +20,7 @@ import okhttp3.mockwebserver.RecordedRequest;
 import reactor.test.StepVerifier;
 
 /**
- * Integration test using a mock server mimicking a real HTTP call
+ * Demo: Integration test using a mock server mimicking a real HTTP call
  *
  */
 @RunWith(JUnitPlatform.class)
