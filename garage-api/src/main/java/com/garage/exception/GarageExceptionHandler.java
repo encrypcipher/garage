@@ -16,7 +16,7 @@ import com.garage.model.ExceptionResponse;
  */
 @ControllerAdvice
 public class GarageExceptionHandler {
-	
+
 	@ExceptionHandler(GarageApiException.class)
 	public final ResponseEntity<?> handleGarageApiException(GarageApiException ex, WebRequest request) {
 		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(),

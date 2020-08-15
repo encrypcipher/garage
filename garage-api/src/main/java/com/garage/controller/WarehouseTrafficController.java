@@ -21,12 +21,12 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequestMapping("/garage/api/v1")
 public class WarehouseTrafficController {
-	
+
 	@Autowired
 	private WarehouseTrafficService warehouseTrafficService;
 
 	private static final String PATH_TRAFFIC = "/traffic";
-	
+
 	@GetMapping(PATH_TRAFFIC)
 	public Mono<Integer> getTrafficResults(@RequestBody WarehouseTrafficReq warehouseTrafficReq) {
 		try {

@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono;
 
 @Repository
 public interface IWarehouseTrafficDao extends ReactiveMongoRepository<WarehouseTraffic, String> {
-	
+
 	@Query("{ 'status': ?0 }")
 	Mono<WarehouseTraffic> findByStatus(final String status);
 }

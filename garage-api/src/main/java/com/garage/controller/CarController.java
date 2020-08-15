@@ -29,12 +29,12 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequestMapping("/garage/api/v1")
 public class CarController {
-	
+
 	private static final String PATH_CAR = "/cars";
-	
+
 	@Autowired
 	private WarehouseService warehouseService;
-	
+
 	@Autowired
 	private CarService carService;
 
@@ -47,7 +47,7 @@ public class CarController {
 			throw new GarageApiException(ex.getMessage(), ex);
 		}
 	}
-	
+
 	@PostMapping(PATH_CAR)
 	public Mono<Car> addCar(@RequestBody Car car) {
 		try {
@@ -57,7 +57,7 @@ public class CarController {
 			throw new GarageApiException(ex.getMessage(), ex);
 		}
 	}
-	
+
 	@PutMapping(PATH_CAR)
 	public Mono<Car> updateCar(@RequestBody Car car) {
 		try {
@@ -67,8 +67,8 @@ public class CarController {
 			throw new GarageApiException(ex.getMessage(), ex);
 		}
 	}
-	
-	@DeleteMapping(PATH_CAR+"/{id}")
+
+	@DeleteMapping(PATH_CAR + "/{id}")
 	public Mono<Void> deleteCar(@PathVariable("id") Integer id) {
 		try {
 			return carService.delete(id);

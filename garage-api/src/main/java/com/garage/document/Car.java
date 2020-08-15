@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Document
-@Data  
+@Data
 @NoArgsConstructor
 public class Car {
 	@Id

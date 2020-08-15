@@ -11,29 +11,28 @@ import com.mongodb.reactivestreams.client.MongoClient;
 import com.mongodb.reactivestreams.client.MongoClients;
 
 /**
- *  Activates the reactive support
+ * Activates the reactive support
  *
  */
 @Configuration
 @EnableReactiveMongoRepositories(basePackages = "com.garage.dao")
-public class MongoConfig extends AbstractReactiveMongoConfiguration
-{  
-     
-    @Value("${spring.data.mongodb.database}")
-    private String dbName;
- 
-    @Override
-    public MongoClient reactiveMongoClient() {
-        return MongoClients.create();
-    }
- 
-    @Override
-    protected String getDatabaseName() {
-        return dbName;
-    }
- 
-    @Bean
-    public ReactiveMongoTemplate reactiveMongoTemplate() {
-        return new ReactiveMongoTemplate(reactiveMongoClient(), getDatabaseName());
-    }
+public class MongoConfig extends AbstractReactiveMongoConfiguration {
+
+	@Value("${spring.data.mongodb.database}")
+	private String dbName;
+
+	@Override
+	public MongoClient reactiveMongoClient() {
+		return MongoClients.create();
+	}
+
+	@Override
+	protected String getDatabaseName() {
+		return dbName;
+	}
+
+	@Bean
+	public ReactiveMongoTemplate reactiveMongoTemplate() {
+		return new ReactiveMongoTemplate(reactiveMongoClient(), getDatabaseName());
+	}
 }

@@ -7,34 +7,24 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 /**
- * Securing the API with basic authentication. 
+ * Securing the API with basic authentication.
  *
  */
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	
-	@Override
-    protected void configure(HttpSecurity http) throws Exception {
 
-        http
-                //HTTP Basic authentication
-                .httpBasic()
-                .and()
-                .authorizeRequests()
-                .anyRequest().authenticated()
-                .and()
-                .csrf().disable()
-                .formLogin().disable();
-    }
-	
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+
+		http
+				// HTTP Basic authentication
+				.httpBasic().and().authorizeRequests().anyRequest().authenticated().and().csrf().disable().formLogin()
+				.disable();
+	}
+
 	@Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) 
-            throws Exception 
-    {
-        auth.inMemoryAuthentication()
-            .withUser("user")
-            .password("{noop}password")
-            .roles("USER");
-    }
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		auth.inMemoryAuthentication().withUser("user").password("{noop}password").roles("USER");
+	}
 
 }
