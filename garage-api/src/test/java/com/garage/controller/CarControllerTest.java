@@ -16,6 +16,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
@@ -50,6 +51,7 @@ public class CarControllerTest {
 	}
 
 	@Test
+	@WithMockUser(username = "user", password = "password", roles = "USER")
 	void getCarsTest() throws Exception {
 
 		given(warehouseService.getCars()).willReturn(testMockApiData.getCars());

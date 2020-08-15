@@ -20,7 +20,7 @@ public class WarehouseTrafficService implements IWarehouseTrafficService {
 
 	@Autowired
 	private IWarehouseTrafficDao warehouseTrafficDao;
-	
+
 	private static final int COUNT_ONE = 1;
 	private static final int COUNT_ZERO = 0;
 
