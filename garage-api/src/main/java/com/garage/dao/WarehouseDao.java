@@ -26,7 +26,7 @@ public class WarehouseDao implements IWarehouseDao {
 	private static final String EXTERNAL_API_PATH = "/b/5ebe673947a2266b1478d892";
 	
 	public WarehouseDao(@Value("${external-service-baseurl}") String baseURL) {
-		this.webClient = WebClient.builder().baseUrl("https://www.googleapis.com/books").build();
+		this.webClient = WebClient.builder().baseUrl(baseURL).build();
 	}
 
 	public Mono<List<Warehouse>> getWarehouses() {
