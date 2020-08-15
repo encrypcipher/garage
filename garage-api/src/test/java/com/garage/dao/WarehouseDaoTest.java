@@ -2,84 +2,64 @@ package com.garage.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
 
-import java.util.List;
+import java.io.IOException;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.web.reactive.function.client.WebClient;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.garage.data.TestMockApiData;
-import com.garage.model.StatusConstants;
-import com.garage.model.Warehouse;
-import com.garage.service.WarehouseTrafficService;
 
-import reactor.core.publisher.Mono;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import okhttp3.mockwebserver.RecordedRequest;
 import reactor.test.StepVerifier;
 
 /**
- * Mocking the webclient for unit testing: 1 demo test case
+ * Integration test using a mock server mimicking a real HTTP call
  *
  */
-@ExtendWith(MockitoExtension.class)
 @RunWith(JUnitPlatform.class)
 public class WarehouseDaoTest {
 
-	@InjectMocks
-	private WarehouseDao warehouseDao;
 	private TestMockApiData testMockApiData;
-	@Mock
-	private WebClient webClient;
-	@SuppressWarnings("rawtypes")
-	@Mock
-	private WebClient.RequestHeadersSpec requestHeadersSpec;
-	@SuppressWarnings("rawtypes")
-	@Mock
-	private WebClient.RequestHeadersUriSpec requestHeadersUriSpec;
-	@Mock
-	private WebClient.RequestBodySpec requestBodySpec;
-	@Mock
-	private WebClient.RequestBodyUriSpec requestBodyUriSpec;
-	@Mock
-	private WebClient.ResponseSpec responseSpec;
-	@Mock
-	private WarehouseTrafficService warehouseTrafficService;
-	@Mock
-	private StatusConstants statusConstants;
-	private static final String EXTERNAL_API_PATH = "/b/5ebe673947a2266b1478d892";
+	private WarehouseDao warehouseDao;
+	private MockWebServer mockWebServer;
+	private ObjectMapper mapper = new ObjectMapper();
 
 	@BeforeEach
-	void setup() {
-		warehouseDao = new WarehouseDao(warehouseTrafficService,statusConstants,webClient );
+	void init() throws IOException {
 		testMockApiData = new TestMockApiData();
+		 this.mockWebServer = new MockWebServer();
+		 this.mockWebServer.start();
+		 warehouseDao = new WarehouseDao(mockWebServer.url("/").toString());
+	}
+	
+	@AfterEach
+	void tearDown() throws IOException {
+		this.mockWebServer.shutdown();
 	}
 
 	@Test
-	void callService() {
-		doNothing().when(warehouseTrafficService).increaseCounter(Mockito.anyString());
-		when(statusConstants.getTotal()).thenReturn("Total");
-		when(statusConstants.getSuccess()).thenReturn("success");
-		when(webClient.get()).thenReturn(requestHeadersUriSpec);
-		when(requestHeadersUriSpec.uri(EXTERNAL_API_PATH)).thenReturn(requestHeadersSpec);
-		when(requestHeadersSpec.retrieve()).thenReturn(responseSpec);
-		when(responseSpec.onStatus(Mockito.any(), Mockito.any())).thenReturn(responseSpec);
-		when(responseSpec.bodyToMono(new ParameterizedTypeReference<List<Warehouse>>() {
-		})).thenReturn(Mono.just(testMockApiData.getMockApiData()));
-		Mono<List<Warehouse>> employeeMono = warehouseDao.getWarehouses();
-		StepVerifier.create(employeeMono).assertNext(res -> {
+	public void getWarehousesTest() throws Exception {
+		//Mock the call and add a response
+		mockWebServer.enqueue(new MockResponse()
+	    	      .setBody(mapper.writeValueAsString(testMockApiData.getMockApiData()))
+	    	      .addHeader("Content-Type", "application/json"));
+
+		// Asserting response
+		StepVerifier.create(warehouseDao.getWarehouses()).assertNext(res -> {
 			assertNotNull(res);
 			assertEquals(1, res.size());
 			assertEquals("id1", res.get(0).getId());
 		}).verifyComplete();
+		
+		RecordedRequest recordedRequest = mockWebServer.takeRequest();
+        assertEquals("GET", recordedRequest.getMethod());
+        assertEquals("/b/5ebe673947a2266b1478d892", recordedRequest.getPath());
 	}
 }
