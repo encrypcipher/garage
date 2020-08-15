@@ -1,14 +1,13 @@
 package com.garage.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.garage.exception.GarageApiException;
 import com.garage.model.StatusConstants;
 import com.garage.model.Warehouse;
 import com.garage.service.WarehouseTrafficService;
@@ -23,46 +22,49 @@ import reactor.core.publisher.Mono;
 @Repository
 @Slf4j
 public class WarehouseDao implements IWarehouseDao {
+
 	
-	@Autowired
 	private WarehouseTrafficService warehouseTrafficService;
-	
-	@Autowired
-	private StatusConstants statusConstants;
-	
-	private final WebClient webClient;
-	private static final String EXTERNAL_API_PATH = "/b/5ebe673947a2266b1478d892";
-	
-	public WarehouseDao(@Value("${external-service-baseurl}") String baseURL) {
-		this.webClient = WebClient.builder().baseUrl("https://www.googleapis.com/books").build();
+	public WarehouseDao(WarehouseTrafficService warehouseTrafficService, StatusConstants statusConstants,
+			WebClient webClient) {
+		this.warehouseTrafficService = warehouseTrafficService;
+		this.statusConstants = statusConstants;
+		this.webClient = webClient;
 	}
 
+	private StatusConstants statusConstants;
+
+	private final WebClient webClient;
+	private static final String EXTERNAL_API_PATH = "/b/5ebe673947a2266b1478d892";
+
+//	public WarehouseDao(@Value("${external-service-baseurl}") String baseURL, WarehouseTrafficService warehouseTrafficService, StatusConstants statusConstants) {
+//		this.webClient = WebClient.builder().baseUrl(baseURL).build();
+//	}
+
 	public Mono<List<Warehouse>> getWarehouses() {
-		return webClient.get().uri(EXTERNAL_API_PATH).exchange().flatMap(response -> {
-			if (response.statusCode().is4xxClientError()) {
-				Mono<String> errMsg = response.bodyToMono(String.class);
-				return errMsg.flatMap(msg -> {
-					log.error(msg);
-					warehouseTrafficService.increaseCounter(statusConstants.getBadRequest());
-					return Mono.just(new ArrayList<>());
+		return webClient.get().uri(EXTERNAL_API_PATH).retrieve()
+				.onStatus(HttpStatus::is4xxClientError, clientResponse -> {
+					Mono<String> errMsg = clientResponse.bodyToMono(String.class);
+					return errMsg.flatMap(msg -> {
+						log.error(msg);
+						warehouseTrafficService.increaseCounter(statusConstants.getBadRequest());
+						warehouseTrafficService.increaseCounter(statusConstants.getTotal());
+						return Mono.error(new GarageApiException(msg));
+					});
+				}).onStatus(HttpStatus::is5xxServerError, clientResponse -> {
+					Mono<String> errMsg = clientResponse.bodyToMono(String.class);
+					return errMsg.flatMap(msg -> {
+						log.error(msg);
+						warehouseTrafficService.increaseCounter(statusConstants.getSeerverError());
+						warehouseTrafficService.increaseCounter(statusConstants.getTotal());
+						return Mono.error(new GarageApiException(msg));
+					});
+				}).bodyToMono(new ParameterizedTypeReference<List<Warehouse>>() {
+				})
+				.doOnSuccess(onSuccess -> {
+					warehouseTrafficService.increaseCounter(statusConstants.getTotal());
+					warehouseTrafficService.increaseCounter(statusConstants.getSuccess());
 				});
-			}
-			;
-			if (response.statusCode().is5xxServerError()) {
-				Mono<String> errMsg = response.bodyToMono(String.class);
-				return errMsg.flatMap(msg -> {
-					log.error(msg);
-					warehouseTrafficService.increaseCounter(statusConstants.getSeerverError());
-					return Mono.just(new ArrayList<>());
-				});
-			}
-			;
-			if (response.statusCode().is2xxSuccessful()) {
-				warehouseTrafficService.increaseCounter(statusConstants.getSuccess());
-			}
-			;
-			return response.bodyToMono(new ParameterizedTypeReference<List<Warehouse>>() {
-			});
-		});
+
 	}
 }

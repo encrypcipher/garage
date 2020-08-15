@@ -7,6 +7,7 @@ public class StatusConstants {
 	private static final String SUCCESS = "200";
 	private static final String BAD_REQUEST = "4XX";
 	private static final String SERVER_ERROR = "5XX";
+	private static final String TOTAL = "TOTAL";
 	
 	public String getSuccess() {
         return SUCCESS;
@@ -18,5 +19,9 @@ public class StatusConstants {
 
 	public String getSeerverError() {
 		return SERVER_ERROR;
+	}
+	
+	public String getTotal() {
+		return TOTAL;
 	}
 }
