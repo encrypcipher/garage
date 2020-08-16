@@ -1,16 +1,30 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
+import { RouterModule, Routes } from '@angular/router';
+import { DataTablesModule } from 'angular-datatables';
 import { AppComponent } from './app.component';
+import { CarDiaplayComponent } from './car-diaplay/car-diaplay.component';
+import { CarDetailsComponent } from './car-details/car-details.component';
+
+const appRoutes: Routes = [
+  { path: 'diaplay', component: CarDiaplayComponent },
+  { path: 'details', component: CarDetailsComponent },
+  { path: '**', redirectTo: '/diaplay' },
+  { path: '', redirectTo: '/diaplay', pathMatch: 'full' }
+];
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CarDiaplayComponent,
+    CarDetailsComponent
   ],
   imports: [
+    RouterModule.forRoot(
+      appRoutes
+    ),
     BrowserModule,
-    AppRoutingModule
+    DataTablesModule
   ],
   providers: [],
   bootstrap: [AppComponent]
