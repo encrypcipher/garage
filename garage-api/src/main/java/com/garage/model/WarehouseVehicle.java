@@ -1,12 +1,16 @@
 package com.garage.model;
 
+import java.math.BigDecimal;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class WarehouseVehicle {
 	@JsonProperty("_id")
 	private Integer id;
@@ -17,7 +21,7 @@ public class WarehouseVehicle {
 	@JsonProperty("year_model")
 	private Integer yearModel;
 	@JsonProperty("price")
-	private Double price;
+	private BigDecimal price;
 	@JsonProperty("licensed")
 	private Boolean licensed;
 	@JsonProperty("date_added")

@@ -1,5 +1,6 @@
 package com.garage.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,9 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.garage.dao.WarehouseDao;
+import com.garage.entity.Car;
 import com.garage.exception.GarageApiException;
 import com.garage.model.StatusConstants;
-import com.garage.model.Warehouse;
 
 import reactor.core.publisher.Mono;
 
@@ -30,19 +31,27 @@ public class WarehouseService implements IWarehouseService {
 	private StatusConstants statusConstants;
 
 	@Override
-	public Mono<List<Warehouse>> getWarehouses() {
+	public Mono<List<Car>> getWarehouseCars() {
 		return warehouseDao.getWarehouses().doOnSuccess(onSuccess -> {
 			warehouseTrafficService.increaseCounter(statusConstants.getSuccess());
-			warehouseTrafficService.increaseCounter(statusConstants.getTotal());
 		}).doOnError(GarageApiException.class, e -> {
 			if (e.getMessage().equals(HttpStatus.BAD_REQUEST.toString())) {
-				warehouseTrafficService.increaseCounter(statusConstants.getTotal());
 				warehouseTrafficService.increaseCounter(statusConstants.getBadRequest());
 			}
 			if (e.getMessage().equals(HttpStatus.INTERNAL_SERVER_ERROR.toString())) {
-				warehouseTrafficService.increaseCounter(statusConstants.getTotal());
 				warehouseTrafficService.increaseCounter(statusConstants.getSeerverError());
 			}
+		}).doFinally(onFinally -> {
+			warehouseTrafficService.increaseCounter(statusConstants.getTotal());
+		}).map(warehouses -> {
+			List<Car> cars = new ArrayList<>();
+			warehouses.parallelStream().forEach((warehouse -> {
+				warehouse.getCars().getVehicles().parallelStream().forEach(vehicle -> {
+					cars.add(new Car(vehicle.getId(), vehicle.getYearModel(), vehicle.getModel(), vehicle.getMake(),
+							vehicle.getPrice()));
+				});
+			}));
+			return cars;
 		});
 	}
 }

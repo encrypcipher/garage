@@ -54,10 +54,13 @@ public class WarehouseServiceTest {
 		when(statusConstants.getSuccess()).thenReturn("success");
 		when(WarehouseDao.getWarehouses()).thenReturn(testMockApiData.getWarehouses());
 		// Asserting response
-				StepVerifier.create(warehouseService.getWarehouses()).assertNext(res -> {
+				StepVerifier.create(warehouseService.getWarehouseCars()).assertNext(res -> {
 					assertNotNull(res);
 					assertEquals(1, res.size());
-					assertEquals("id1", res.get(0).getId());
+					assertEquals(Integer.valueOf(999), res.get(0).getId());
+					assertEquals("Aurora", res.get(0).getMake());
+					assertEquals("infinity", res.get(0).getModel());
+					assertEquals(2006, res.get(0).getYear());
 				}).verifyComplete();
 	}
 }

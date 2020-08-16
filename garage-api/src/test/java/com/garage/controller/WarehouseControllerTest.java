@@ -50,13 +50,13 @@ public class WarehouseControllerTest {
 	@WithMockUser(username = "user", password = "password", roles = "USER")
 	void getCarsTest() throws Exception {
 
-		given(warehouseService.getWarehouses()).willReturn(testMockApiData.getWarehouses());
+		given(warehouseService.getWarehouseCars()).willReturn(testMockApiData.getWarehousesCars());
 		MvcResult mvcResult = mockMvc.perform(get(TEST_ENDPOINT_CAR))
 				.andExpect(request().asyncStarted()).andDo(MockMvcResultHandlers.log()).andReturn();
 
 		mockMvc.perform(asyncDispatch(mvcResult)).andExpect(status().isOk())
 				.andExpect(jsonPath("$.size()", is(1)));
 
-		Mockito.verify(warehouseService, Mockito.times(1)).getWarehouses();
+		Mockito.verify(warehouseService, Mockito.times(1)).getWarehouseCars();
 	}
 }

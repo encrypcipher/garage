@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.garage.entity.Car;
 import com.garage.exception.GarageApiException;
-import com.garage.model.Warehouse;
 import com.garage.service.WarehouseService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -29,9 +29,9 @@ public class WarehouseController {
 	private WarehouseService warehouseService;
 
 	@GetMapping(PATH_WAREHOUSE)
-	public Mono<List<Warehouse>> getCars() {
+	public Mono<List<Car>> getWarehouseCars() {
 		try {
-			return warehouseService.getWarehouses();
+			return warehouseService.getWarehouseCars();
 		} catch (Exception ex) {
 			log.error(ex.getMessage());
 			throw new GarageApiException(ex.getMessage(), ex);
