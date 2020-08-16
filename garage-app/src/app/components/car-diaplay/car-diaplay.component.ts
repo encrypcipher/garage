@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CarService } from 'src/app/service/car.service';
 import { Subject } from 'rxjs';
 import { Car } from 'src/app/interface/Car';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-car-diaplay',
   templateUrl: './car-diaplay.component.html',
@@ -14,7 +15,8 @@ export class CarDiaplayComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject();
   cars: Array<Car> = [];
 
-  constructor(private carService: CarService) { }
+  constructor(private carService: CarService,
+    private router: Router,) { }
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -25,6 +27,11 @@ export class CarDiaplayComponent implements OnInit {
       this.cars = data;
       this.dtTrigger.next();
     });
+  }
+
+  showDetails(details) {
+    this.carService.setdetails(details);
+    this.router.navigate(['/details']);
   }
 
   ngOnDestroy(): void {

@@ -14,9 +14,19 @@ export class CarService {
   warehouses: any;
   warehouseVehicles: any;
   carList: Array<Car> = [];
+  private details = new BehaviorSubject(null);
+  carDetails = this.details.asObservable();
 
   getWarehouses() {
     return this.http.get(`${environment.apiUrl}`);
+  }
+
+  setdetails(data: any) {
+    this.details.next(data);
+  }
+
+  getdetails(): any {
+    return this.carDetails;
   }
 
   getCars(): Observable<Array<Car>> {
@@ -27,7 +37,7 @@ export class CarService {
           this.warehouses.forEach(warehouse => {
             this.warehouseVehicles = warehouse.cars.vehicles;
             this.warehouseVehicles.forEach(vehicle => {
-              this.carList.push(new Car(vehicle._id, vehicle.year_model, vehicle.model, vehicle.make, vehicle.price, vehicle.licensed, vehicle.date_added, new CarDetails(warehouse.name, warehouse.location.lat, warehouse.location.long)));
+              this.carList.push(new Car(vehicle._id, vehicle.year_model, vehicle.model, vehicle.make, vehicle.price, vehicle.licensed, vehicle.date_added, new CarDetails(vehicle._id, warehouse.name, warehouse.location.lat, warehouse.location.long)));
             });
           });
           this.carList.sort((a, b) => a.dateAdded.localeCompare(b.dateAdded));

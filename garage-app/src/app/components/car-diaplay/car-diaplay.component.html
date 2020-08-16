@@ -1,5 +1,5 @@
 <div class="row mt-5 ml-3">
-    <div class="col-md-10 textDisplay paddTop paddBot center">
+    <div class="col-md-10 center">
         <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
             <thead>
                 <tr>
@@ -9,6 +9,7 @@
                     <th>Licensed</th>
                     <th>Make</th>
                     <th>Model</th>
+                    <th>Price</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -20,7 +21,8 @@
                     <td>{{ car.licensed}}</td>
                     <td>{{ car.make }}</td>
                     <td>{{ car.model }}</td>
-                    <td><button [disabled]=!car.licensed routerLink="/team" class="btn btn-primary">View</button></td>
+                    <td>{{ car.price }}</td>
+                    <td><button [disabled]=!car.licensed (click)="showDetails(car.carDetails)" class="btn btn-primary">View</button></td>
                 </tr>
             </tbody>
         </table>

@@ -1,1 +1,12 @@
-<p>car-details works!</p>
+<div *ngIf="carDetails | async as details" class="card center" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">Car Details</h5>
+      <h6><span class="card-subtitle mb-2 text-muted">Car Id:</span>&nbsp;{{details.carId}}</h6>
+      <h6><span class="card-subtitle mb-2 text-muted">Warehouse Name:</span>&nbsp;{{details.warehouse}}</h6>
+      <h6><span class="card-subtitle mb-2 text-muted">Warehouse Location Latitude:</span>&nbsp;{{details.lat}}</h6>
+      <h6><span class="card-subtitle mb-2 text-muted">Warehouse Location Longitude:</span>&nbsp;{{details.long}}</h6>
+    </div>
+    <button routerLink="/display" class="btn center btn-primary">Back</button>
+  </div>
+
+ 
