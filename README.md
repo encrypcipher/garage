@@ -32,7 +32,8 @@ With Docker: <br>
 
  ## End points:
    Base URL: http://localhost:8080/search/api/v1 <br>
-   User name: user <br>
+   Authentication: Basic<br>
+   user name: user <br>
    password: password <br>
    
      API Operations:
@@ -46,7 +47,7 @@ With Docker: <br>
 |5|  delete car | /cars/{id} |DELETE |
 
 ## 1. get warehouses with cars
-- URI: //warehouse
+- URI: /warehouse
 - Method: GET
 <br>
 Request Body : None
