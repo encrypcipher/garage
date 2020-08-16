@@ -28,6 +28,8 @@ With Docker: <br>
 - A microservice with its own database with a well defined set of functinatlity. And runs in a containerized environment.
 - A reactive approach down to the databse to enable the API respond in a non-blocking and event based to improve performance.
 - Used spring web flux to reactively interact with 3rd party apis, using this library enables our client to perform HTTP requests and providing asynchronous behaviour i.e the rest call need not wait till response comes back. Instead when there is a response, a notification will be provided.
+- Get Response from mock api data which has cars that are grouped under warehouses and aggregate the results of all warehouses by parallel processing to one custom CAR POJO.
+- By utilizing the parallel processing of data using streams the performance is optimized.
 - Reactive Mongo DB NoSQL database enabling a reactive interaction with DB, a nosql Db is document orientend enables storing of data together in documents, boosts horizonal scaling.
 
  ## End points:
@@ -41,14 +43,14 @@ With Docker: <br>
   
   |No| Operation | Endpoint | Method |
 |----|---|---|---|
-|1| get warehouses  cars   |/warehouse | GET |
+|1| get warehouses  cars   |/warehouses | GET |
 |2| get traffic results | /traffic | GET |
 |3|  add car | /cars |POST |
 |4|  update car | /cars |PUT |
 |5|  delete car | /cars/{id} |DELETE |
 
 ## 1. get warehouses cars
-- URI: /warehouse
+- URI: /warehouses
 - Method: GET
 <br>
 Request Body : None
