@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.garage.document.Car;
+import com.garage.entity.Car;
 import com.garage.exception.GarageApiException;
 import com.garage.service.CarService;
 

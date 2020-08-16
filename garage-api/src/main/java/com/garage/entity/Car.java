@@ -1,4 +1,4 @@
-package com.garage.document;
+package com.garage.entity;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;

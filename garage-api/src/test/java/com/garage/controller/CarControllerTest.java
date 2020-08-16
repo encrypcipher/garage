@@ -26,7 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.garage.data.TestMockApiData;
-import com.garage.document.Car;
+import com.garage.entity.Car;
 import com.garage.service.CarService;
 
 /**

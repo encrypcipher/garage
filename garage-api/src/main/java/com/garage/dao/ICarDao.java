@@ -3,7 +3,7 @@ package com.garage.dao;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
 
-import com.garage.document.Car;
+import com.garage.entity.Car;
 
 /**
  * Dao layer to interact with data source: Mongo DB and to implement database

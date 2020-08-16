@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.garage.dao.ICarDao;
-import com.garage.document.Car;
+import com.garage.entity.Car;
 
 import reactor.core.publisher.Mono;
 

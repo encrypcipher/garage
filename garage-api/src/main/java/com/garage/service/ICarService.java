@@ -1,6 +1,6 @@
 package com.garage.service;
 
-import com.garage.document.Car;
+import com.garage.entity.Car;
 
 import reactor.core.publisher.Mono;
 

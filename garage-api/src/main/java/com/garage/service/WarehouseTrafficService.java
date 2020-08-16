@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.garage.dao.IWarehouseTrafficDao;
-import com.garage.document.WarehouseTraffic;
+import com.garage.entity.WarehouseTraffic;
 import com.garage.exception.GarageApiException;
 import com.garage.model.WarehouseTrafficReq;
 

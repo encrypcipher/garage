@@ -14,7 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.garage.dao.IWarehouseTrafficDao;
 import com.garage.data.TestMockApiData;
-import com.garage.document.WarehouseTraffic;
+import com.garage.entity.WarehouseTraffic;
 import com.garage.model.StatusConstants;
 
 /**

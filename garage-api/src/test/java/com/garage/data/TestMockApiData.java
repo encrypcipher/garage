@@ -3,8 +3,8 @@ package com.garage.data;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.garage.document.Car;
-import com.garage.document.WarehouseTraffic;
+import com.garage.entity.Car;
+import com.garage.entity.WarehouseTraffic;
 import com.garage.model.Warehouse;
 
 import reactor.core.publisher.Mono;
