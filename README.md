@@ -81,7 +81,7 @@ Response :
 <br>
 Request Body
 
-  |Attributes|Type|Validation | Required |
+  |Attributes|Type|Allowed values | Required |
 |----|---|---|---|
 |status|string | 200, 4XX, 5XX, TOTAL| yes|
 |trafficCountType|ENUM | MAX,MIN,AVERAGE| yes |
@@ -156,7 +156,7 @@ Response
 }
 ```
 ## 5. delete car
-- URI: /cars/{id} eg: /cars/{id}
+- URI: /cars/{id} eg: /cars/1
 - Method: DELETE<br>
 
 Response : none
