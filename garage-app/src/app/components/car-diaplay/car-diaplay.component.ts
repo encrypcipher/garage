@@ -14,7 +14,7 @@ export class CarDiaplayComponent implements OnInit {
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject();
   cars: Array<Car> = [];
-
+  loaded: boolean;
   constructor(private carService: CarService,
     private router: Router,) { }
 
@@ -26,6 +26,7 @@ export class CarDiaplayComponent implements OnInit {
       console.log(data);
       this.cars = data;
       this.dtTrigger.next();
+      this.loaded = true;
     });
   }
 

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { first } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Observable, of, merge, Subject, BehaviorSubject, zip } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Car } from '../interface/Car';
 import { CarDetails } from '../interface/CarDetails';
@@ -34,6 +33,7 @@ export class CarService {
       .pipe(
         map(response => {
           this.warehouses = response;
+          this.carList = [];
           this.warehouses.forEach(warehouse => {
             this.warehouseVehicles = warehouse.cars.vehicles;
             this.warehouseVehicles.forEach(vehicle => {
