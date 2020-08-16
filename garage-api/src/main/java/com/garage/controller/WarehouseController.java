@@ -23,7 +23,7 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/garage/api/v1")
 public class WarehouseController {
 	
-	private static final String PATH_WAREHOUSE = "/warehouse";
+	private static final String PATH_WAREHOUSE = "/warehouses";
 	
 	@Autowired
 	private WarehouseService warehouseService;
