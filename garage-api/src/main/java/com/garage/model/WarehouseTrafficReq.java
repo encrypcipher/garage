@@ -9,9 +9,9 @@ import lombok.Data;
 @AllArgsConstructor
 public class WarehouseTrafficReq {
 	
-	@NotBlank(message = "status is mandatory")
+	@NotBlank(message = "status: property is mandatory")
 	private String Status;
 	
-	@NotBlank(message = "trafficCountType is mandatory")
+	@NotBlank(message = "trafficCountType: property is mandatory")
 	private TrafficCountType trafficCountType;
 }

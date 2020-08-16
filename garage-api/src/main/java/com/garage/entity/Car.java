@@ -21,20 +21,20 @@ public class Car {
 	
 	@Id
 	@Min(1)
-	@NotNull
+	@NotNull(message = "id: property is mandatory")
 	private Integer id;
 	
 	@Min(1500)
-	@NotNull
+	@NotNull(message = "year: property is mandatory")
 	private int year;
 	
-	@NotBlank(message = "Model is mandatory")
+	@NotBlank(message = "model: property is mandatory")
 	private String model;
 	
-	@NotBlank(message = "Make is mandatory")
+	@NotBlank(message = "make: property is mandatory")
 	private String make;
 	
 	@Min(1)
-	@NotNull
+	@NotNull(message = "price: property is mandatory")
 	private BigDecimal price;
 }
