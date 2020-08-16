@@ -43,13 +43,16 @@ public class WarehouseService implements IWarehouseService {
 			}
 		}).doFinally(onFinally -> {
 			warehouseTrafficService.increaseCounter(statusConstants.getTotal());
-		}).map(warehouses -> {
+		}).switchIfEmpty(Mono.just(new ArrayList<>())).map(warehouses -> {
 			List<Car> cars = new ArrayList<>();
 			warehouses.parallelStream().forEach((warehouse -> {
-				warehouse.getCars().getVehicles().parallelStream().forEach(vehicle -> {
-					cars.add(new Car(vehicle.getId(), vehicle.getYearModel(), vehicle.getModel(), vehicle.getMake(),
-							vehicle.getPrice()));
-				});
+				if (warehouse.getCars() != null && warehouse.getCars().getVehicles() != null) {
+					warehouse.getCars().getVehicles().parallelStream().forEach(vehicle -> {
+						cars.add(new Car(vehicle.getId(), vehicle.getYearModel(), vehicle.getModel(), vehicle.getMake(),
+								vehicle.getPrice()));
+					});
+				}
+
 			}));
 			return cars;
 		});
