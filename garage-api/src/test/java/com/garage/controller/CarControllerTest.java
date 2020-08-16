@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -24,6 +23,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -57,10 +57,7 @@ public class CarControllerTest {
 	@WithMockUser(username = "user", password = "password", roles = "USER")
 	void assCarTest() throws Exception {
 		Car car = new Car(123,2002,"Mustang","Cheverlot",new BigDecimal(21999));
-		ObjectMapper mapper = new ObjectMapper();
-	    mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-	    ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-	    String requestJson=ow.writeValueAsString(car);
+		String requestJson = convetToJson(car);
 		given(carService.create(Mockito.any(Car.class))).willReturn(testMockApiData.getMockCarData());
 		MvcResult mvcResult = mockMvc.perform(post(TEST_PATH_CAR).contentType(MediaType.APPLICATION_JSON).content(requestJson))
 				.andExpect(request().asyncStarted()).andDo(MockMvcResultHandlers.log()).andReturn();
@@ -71,6 +68,14 @@ public class CarControllerTest {
 			    .andExpect(jsonPath("$.model", is("Mustang")));
 
 		Mockito.verify(carService, Mockito.times(1)).create(Mockito.any(Car.class));
+	}
+
+	private String convetToJson(Car car) throws JsonProcessingException {
+		ObjectMapper mapper = new ObjectMapper();
+	    mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+	    ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+	    String requestJson=ow.writeValueAsString(car);
+		return requestJson;
 	}
 	
 }
