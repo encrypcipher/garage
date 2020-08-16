@@ -18,17 +18,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Car {
+	
 	@Id
 	@Min(1)
 	@NotNull
 	private Integer id;
+	
 	@Min(1500)
 	@NotNull
 	private int year;
+	
 	@NotBlank(message = "Model is mandatory")
 	private String model;
+	
 	@NotBlank(message = "Make is mandatory")
 	private String make;
+	
 	@Min(1)
 	@NotNull
 	private BigDecimal price;
