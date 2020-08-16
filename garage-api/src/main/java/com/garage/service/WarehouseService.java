@@ -30,7 +30,7 @@ public class WarehouseService implements IWarehouseService {
 	private StatusConstants statusConstants;
 
 	@Override
-	public Mono<List<Warehouse>> getCars() {
+	public Mono<List<Warehouse>> getWarehouses() {
 		return warehouseDao.getWarehouses().doOnSuccess(onSuccess -> {
 			warehouseTrafficService.increaseCounter(statusConstants.getSuccess());
 			warehouseTrafficService.increaseCounter(statusConstants.getTotal());

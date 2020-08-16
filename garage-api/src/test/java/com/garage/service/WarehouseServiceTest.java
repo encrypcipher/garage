@@ -52,9 +52,9 @@ public class WarehouseServiceTest {
 		doNothing().when(warehouseTrafficService).increaseCounter(Mockito.anyString());
 		when(statusConstants.getTotal()).thenReturn("Total");
 		when(statusConstants.getSuccess()).thenReturn("success");
-		when(WarehouseDao.getWarehouses()).thenReturn(testMockApiData.getCars());
+		when(WarehouseDao.getWarehouses()).thenReturn(testMockApiData.getWarehouses());
 		// Asserting response
-				StepVerifier.create(warehouseService.getCars()).assertNext(res -> {
+				StepVerifier.create(warehouseService.getWarehouses()).assertNext(res -> {
 					assertNotNull(res);
 					assertEquals(1, res.size());
 					assertEquals("id1", res.get(0).getId());

@@ -8,5 +8,5 @@ import reactor.core.publisher.Mono;
 
 public interface IWarehouseService {
 	
-	Mono<List<Warehouse>> getCars();
+	Mono<List<Warehouse>> getWarehouses();
 }

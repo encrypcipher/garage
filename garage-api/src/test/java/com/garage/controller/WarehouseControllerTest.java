@@ -3,7 +3,7 @@ package com.garage.controller;
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.asyncDispatch;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -16,35 +16,30 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.garage.data.TestMockApiData;
-import com.garage.document.Car;
-import com.garage.service.CarService;
+import com.garage.service.WarehouseService;
 
 /**
  * Unit Testing the controller with a stand alone setup using MockMVC to mimic
  * an API call to the controller along with mock a service. Includes: One demo
  * test case
  */
-@WebMvcTest(controllers = CarController.class)
-public class CarControllerTest {
+@WebMvcTest(controllers = WarehouseController.class)
+public class WarehouseControllerTest {
 	
 	@Autowired
 	private MockMvc mockMvc;
 	
 	@MockBean
-	private CarService carService;
+	private WarehouseService warehouseService;
 	
 	private TestMockApiData testMockApiData;
-	private static final String TEST_ENDPOINT_CAR = "/garage/api/v1/cars";
+	private static final String TEST_ENDPOINT_CAR = "/garage/api/v1/warehouse";
 	
 	@BeforeEach
 	void init() throws IOException {
@@ -53,22 +48,15 @@ public class CarControllerTest {
 
 	@Test
 	@WithMockUser(username = "user", password = "password", roles = "USER")
-	void assCarTest() throws Exception {
-		Car car = new Car(123,"2002","Mustang","Cheverlot",21999);
-		ObjectMapper mapper = new ObjectMapper();
-	    mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-	    ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-	    String requestJson=ow.writeValueAsString(car);
-		given(carService.create(Mockito.any(Car.class))).willReturn(testMockApiData.getMockCarData());
-		MvcResult mvcResult = mockMvc.perform(post(TEST_ENDPOINT_CAR).contentType(MediaType.APPLICATION_JSON).content(requestJson))
+	void getCarsTest() throws Exception {
+
+		given(warehouseService.getWarehouses()).willReturn(testMockApiData.getWarehouses());
+		MvcResult mvcResult = mockMvc.perform(get(TEST_ENDPOINT_CAR))
 				.andExpect(request().asyncStarted()).andDo(MockMvcResultHandlers.log()).andReturn();
 
 		mockMvc.perform(asyncDispatch(mvcResult)).andExpect(status().isOk())
-				.andExpect(jsonPath("$.id", is(123)))
-			    .andExpect(jsonPath("$.year", is("2002")))	
-			    .andExpect(jsonPath("$.model", is("Mustang")));
+				.andExpect(jsonPath("$.size()", is(1)));
 
-		Mockito.verify(carService, Mockito.times(1)).create(Mockito.any(Car.class));
+		Mockito.verify(warehouseService, Mockito.times(1)).getWarehouses();
 	}
-	
 }

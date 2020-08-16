@@ -48,7 +48,7 @@ public class WarehouseDaoTest {
 	public void getWarehousesTest() throws Exception {
 		//Mock the call and add a response
 		mockWebServer.enqueue(new MockResponse()
-	    	      .setBody(mapper.writeValueAsString(testMockApiData.getMockApiData()))
+	    	      .setBody(mapper.writeValueAsString(testMockApiData.getMockWarehouseData()))
 	    	      .addHeader("Content-Type", "application/json"));
 
 		// Asserting response

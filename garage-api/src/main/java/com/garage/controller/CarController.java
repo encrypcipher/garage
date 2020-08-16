@@ -1,10 +1,9 @@
 package com.garage.controller;
 
-import java.util.List;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,9 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.garage.document.Car;
 import com.garage.exception.GarageApiException;
-import com.garage.model.Warehouse;
 import com.garage.service.CarService;
-import com.garage.service.WarehouseService;
 
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
@@ -33,23 +30,11 @@ public class CarController {
 	private static final String PATH_CAR = "/cars";
 
 	@Autowired
-	private WarehouseService warehouseService;
-
-	@Autowired
 	private CarService carService;
-
-	@GetMapping(PATH_CAR)
-	public Mono<List<Warehouse>> getCars() {
-		try {
-			return warehouseService.getCars();
-		} catch (Exception ex) {
-			log.error(ex.getMessage());
-			throw new GarageApiException(ex.getMessage(), ex);
-		}
-	}
+	
 
 	@PostMapping(PATH_CAR)
-	public Mono<Car> addCar(@RequestBody Car car) {
+	public Mono<Car> addCar(@Valid @RequestBody Car car) {
 		try {
 			return carService.create(car);
 		} catch (Exception ex) {
@@ -59,7 +44,7 @@ public class CarController {
 	}
 
 	@PutMapping(PATH_CAR)
-	public Mono<Car> updateCar(@RequestBody Car car) {
+	public Mono<Car> updateCar(@Valid @RequestBody Car car) {
 		try {
 			return carService.update(car);
 		} catch (Exception ex) {
