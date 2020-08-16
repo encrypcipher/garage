@@ -9,6 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -54,7 +55,7 @@ public class CarControllerTest {
 	@Test
 	@WithMockUser(username = "user", password = "password", roles = "USER")
 	void assCarTest() throws Exception {
-		Car car = new Car(123,"2002","Mustang","Cheverlot",21999);
+		Car car = new Car(123,2002,"Mustang","Cheverlot",new BigDecimal(21999));
 		ObjectMapper mapper = new ObjectMapper();
 	    mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
 	    ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -65,7 +66,7 @@ public class CarControllerTest {
 
 		mockMvc.perform(asyncDispatch(mvcResult)).andExpect(status().isOk())
 				.andExpect(jsonPath("$.id", is(123)))
-			    .andExpect(jsonPath("$.year", is("2002")))	
+			    .andExpect(jsonPath("$.year", is(2002)))	
 			    .andExpect(jsonPath("$.model", is("Mustang")));
 
 		Mockito.verify(carService, Mockito.times(1)).create(Mockito.any(Car.class));

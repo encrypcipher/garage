@@ -1,5 +1,6 @@
 package com.garage.data;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class TestMockApiData {
 	}
 	
 	public Mono<Car> getMockCarData(){
-		return Mono.just(new Car(123,"2002","Mustang","Cheverlot",21999));
+		return Mono.just(new Car(123,2002,"Mustang","Cheverlot",new BigDecimal(21999)));
 	}
 	
 	

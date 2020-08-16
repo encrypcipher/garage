@@ -1,0 +1,28 @@
+<div class="row mt-5 ml-3">
+    <div class="col-md-10 textDisplay paddTop paddBot center">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+            <thead>
+                <tr>
+                  
+                    <th>Date Added</th>
+                    <th>Id</th>
+                    <th>Licensed</th>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let car of cars">
+                  
+                    <td>{{ car.dateAdded }}</td>
+                    <td>{{car.id}}</td>
+                    <td>{{ car.licensed}}</td>
+                    <td>{{ car.make }}</td>
+                    <td>{{ car.model }}</td>
+                    <td><button [disabled]=!car.licensed routerLink="/team" class="btn btn-primary">View</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

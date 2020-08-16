@@ -1,5 +1,7 @@
 package com.garage.entity;
 
+import java.math.BigDecimal;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -20,13 +22,14 @@ public class Car {
 	@Min(1)
 	@NotNull
 	private Integer id;
-	@NotBlank(message = "Year is mandatory")
-	private String year;
+	@Min(1500)
+	@NotNull
+	private int year;
 	@NotBlank(message = "Model is mandatory")
 	private String model;
 	@NotBlank(message = "Make is mandatory")
 	private String make;
 	@Min(1)
 	@NotNull
-	private Integer price;
+	private BigDecimal price;
 }
