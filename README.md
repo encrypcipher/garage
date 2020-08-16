@@ -30,7 +30,7 @@ With Docker: <br>
 - Used spring web flux to reactively interact with 3rd party apis, using this library enables our client to perform HTTP requests and providing asynchronous behaviour i.e the rest call need not wait till response comes back. Instead when there is a response, a notification will be provided.
 - Get Response from mock api data which has cars that are grouped under warehouses and aggregate the results of all warehouses by parallel processing to one custom CAR POJO.
 - By utilizing the parallel processing of data using streams the performance is optimized.
-- Reactive Mongo DB NoSQL database enabling a reactive interaction with DB, a nosql Db is document orientend enables storing of data together in documents, boosts horizonal scaling.
+- Reactive Mongo DB NoSQL database enabling a reactive interaction with DB, a nosql Db is document orientend enables storing of data together in documents.
 
  ## End points:
    3rd Party API : https://api.jsonbin.io/b/5ebe673947a2266b1478d892 <br>
