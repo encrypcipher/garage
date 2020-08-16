@@ -25,7 +25,7 @@ public class WarehouseDao implements IWarehouseDao {
 	private final WebClient webClient;
 	private static final String EXTERNAL_API_PATH = "/b/5ebe673947a2266b1478d892";
 
-	public WarehouseDao(@Value("${external-service-baseurl}") String baseURL) {
+	public WarehouseDao(@Value("${external-api-baseurl}") String baseURL) {
 		this.webClient = WebClient.builder().baseUrl(baseURL).build();
 	}
 
