@@ -41,14 +41,14 @@ public class WarehouseTrafficControllerTest {
 	@MockBean
 	private WarehouseTrafficService warehouseTrafficService;
 	
-	private static final String TEST_ENDPOINT_TRAFFIC = "/garage/api/v1/traffic";
+	private static final String TEST_PATH_TRAFFIC = "/traffic";
 
 	@Test
 	@WithMockUser(username = "user", password = "password", roles = "USER")
 	public void getCountTest() throws Exception {
 
 		when(warehouseTrafficService.claculateCount(Mockito.any(WarehouseTrafficReq.class))).thenReturn(Mono.just(1));
-		MvcResult mvcResult = mockMvc.perform(get(TEST_ENDPOINT_TRAFFIC).content(reqJson()).contentType(MediaType.APPLICATION_JSON))
+		MvcResult mvcResult = mockMvc.perform(get(TEST_PATH_TRAFFIC).content(reqJson()).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(request().asyncStarted()).andDo(MockMvcResultHandlers.log()).andReturn();
 
 		mockMvc.perform(asyncDispatch(mvcResult)).andExpect(status().isOk())

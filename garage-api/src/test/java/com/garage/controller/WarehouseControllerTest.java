@@ -39,7 +39,7 @@ public class WarehouseControllerTest {
 	private WarehouseService warehouseService;
 	
 	private TestMockApiData testMockApiData;
-	private static final String TEST_ENDPOINT_CAR = "/garage/api/v1/warehouse";
+	private static final String TEST_PATH_WAREHOUSES = "/warehouses";
 	
 	@BeforeEach
 	void init() throws IOException {
@@ -51,7 +51,7 @@ public class WarehouseControllerTest {
 	void getCarsTest() throws Exception {
 
 		given(warehouseService.getWarehouseCars()).willReturn(testMockApiData.getWarehousesCars());
-		MvcResult mvcResult = mockMvc.perform(get(TEST_ENDPOINT_CAR))
+		MvcResult mvcResult = mockMvc.perform(get(TEST_PATH_WAREHOUSES))
 				.andExpect(request().asyncStarted()).andDo(MockMvcResultHandlers.log()).andReturn();
 
 		mockMvc.perform(asyncDispatch(mvcResult)).andExpect(status().isOk())

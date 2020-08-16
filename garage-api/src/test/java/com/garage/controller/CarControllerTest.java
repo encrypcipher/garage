@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -45,7 +46,7 @@ public class CarControllerTest {
 	private CarService carService;
 	
 	private TestMockApiData testMockApiData;
-	private static final String TEST_ENDPOINT_CAR = "/garage/api/v1/cars";
+	private static final String TEST_PATH_CAR = "/cars";
 	
 	@BeforeEach
 	void init() throws IOException {
@@ -61,7 +62,7 @@ public class CarControllerTest {
 	    ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
 	    String requestJson=ow.writeValueAsString(car);
 		given(carService.create(Mockito.any(Car.class))).willReturn(testMockApiData.getMockCarData());
-		MvcResult mvcResult = mockMvc.perform(post(TEST_ENDPOINT_CAR).contentType(MediaType.APPLICATION_JSON).content(requestJson))
+		MvcResult mvcResult = mockMvc.perform(post(TEST_PATH_CAR).contentType(MediaType.APPLICATION_JSON).content(requestJson))
 				.andExpect(request().asyncStarted()).andDo(MockMvcResultHandlers.log()).andReturn();
 
 		mockMvc.perform(asyncDispatch(mvcResult)).andExpect(status().isOk())
