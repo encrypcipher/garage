@@ -31,7 +31,8 @@ With Docker: <br>
 - Reactive Mongo DB NoSQL database enabling a reactive interaction with DB, a nosql Db is document orientend enables storing of data together in documents, boosts horizonal scaling.
 
  ## End points:
-   Base URL: http://localhost:8080/search/api/v1 <br>
+   3rd Party API : https://api.jsonbin.io/b/5ebe673947a2266b1478d892 <br>
+   API Base URL: http://localhost:8080/search/api/v1 <br>
    Authentication: Basic<br>
    user name: user <br>
    password: password <br>
