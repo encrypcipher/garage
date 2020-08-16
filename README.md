@@ -56,25 +56,13 @@ Request Body : None
 Response :
 ```
  [{
-  	"_id": "1",
-  	"name": "Warehouse A",
-  	"location": {
-  		"lat": "47.13111",
-  		"long": "-61.54801"
-  	},
-  	"cars": {
-  		"location": "West wing",
-  		"vehicles": [{
-  			"_id": 1,
-  			"make": "Volkswagen",
-  			"model": "Jetta III",
-  			"year_model": 1995,
-  			"price": 12947.52,
-  			"licensed": true,
-  			"date_added": "2018-09-18"
-  		}]
-  	}
-  }]
+    "id":1,
+    "year": 2002,
+    "model": "swift",
+    "make": "suzuki",
+    "price": 1299.99
+}]
+  
 ```
 ## 2. get traffic results
 - URI: /traffic
