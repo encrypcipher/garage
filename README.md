@@ -1,6 +1,6 @@
 # Frank's garage
 - Architecture <br>
-![garage](https://user-images.githubusercontent.com/22782834/90341211-f3e7dc00-dffd-11ea-9a6c-63952fa61247.png)
+![garage](https://user-images.githubusercontent.com/22782834/90405684-657a6580-e0a4-11ea-94ca-1b92429965ba.png)
 
 # API Documentation
 ## Technology stack
