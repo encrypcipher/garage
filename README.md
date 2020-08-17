@@ -174,7 +174,7 @@ With Docker: <br>
 
 ## Approach:
 - A single page application and pure component based approach.  And runs in a containerized environment.
-- A service layer to interact with the API to fetch the results.
+- A service layer to interact with the API to fetch the results. 3rd Party API : https://api.jsonbin.io/b/5ebe673947a2266b1478d892
 - Phase 1: Display of all cars: car-diplay components displays the cars from franks garage sorted baesd on date added
 - Phase 2: show details of a car: car-details compnent displays the details of a particular car
 - phase 3: shpping cart: shopping-car component is display the cars added by user to checkout 
