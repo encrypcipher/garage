@@ -28,7 +28,7 @@ With Docker: <br>
 - A microservice with its own database with a well defined set of functinatlity. And runs in a containerized environment.
 - A reactive approach down to the databse to enable the API respond in a non-blocking and event based to improve performance.
 - Used spring web flux to reactively interact with 3rd party apis, using this library enables our client to perform HTTP requests and providing asynchronous behaviour i.e the rest call need not wait till response comes back. Instead when there is a response, a notification will be provided.
-- Get Response from mock api data which has cars that are grouped under warehouses and aggregate the results of all warehouses by parallel processing to one custom CAR POJO.
+- Get Response from mock api data which has cars that are grouped under warehouses and aggregate the results of all warehouses by parallel processing to one custom CAR POJO to list all the available cars.
 - By utilizing the parallel processing of data using streams the performance is optimized.
 - Reactive Mongo DB NoSQL database enabling a reactive interaction with DB, a nosql Db is document orientend enables storing of data together in documents.
 
@@ -151,3 +151,40 @@ Response
 - Method: DELETE<br>
 
 Response : none
+
+# APP Documentation
+## Technology stack
+  - Angular 9
+  - css
+  - Bootstarp 4
+  - Type Script
+  - npm Build
+  - Environment: Browsers (google chrome, firefox etc)
+  - Deploymnet: Docker container
+  
+  ## Instructions to run
+With Docker: <br>
+   - Need to have git installed. Clone the project: git clone https://github.com/vishnuvuyyur1/garage.git
+   - Need to have docker installed. <br>
+   Run APP <br>
+   - Command prompt: From insider the project folder garage-app
+   - Step1: build the project : docker build -t garage-app-image .
+   - Step1: run the api: docker run --name garage-app-container -d -p 4200:80 garage-app-image
+   - Base URL: http://localhost:4200
+
+## Approach:
+- A single page application and pure component based approach.  And runs in a containerized environment.
+- A service layer to interact with the API to fetch the results.
+- Phase 1: Display of all cars: car-diplay components displays the cars from franks garage sorted baesd on date added
+- Phase 2: show details of a car: car-details compnent displays the details of a particular car
+- phase 3: shpping cart: shopping-car component is display the cars added by user to checkout 
+- Includes navigation : when a user clicks on view details of a particular car we navigate to anoter route to display the results, and user go back to cars diplay. The reason for this mechanish is to fetch fresh load of cars every time a user navigates to cars display.
+- Additional Futures: Search, sort, pagination, control to dispay no of cars 10,20,30 etc 
+
+Results:<br>
+- Phase 1<br>
+![image](https://user-images.githubusercontent.com/22782834/90391992-5b4d6c80-e08e-11ea-88bd-0d6cf5f68bc5.png)
+- phase 2
+![image](https://user-images.githubusercontent.com/22782834/90392255-d020a680-e08e-11ea-92b1-26dd3dc1cfae.png)
+- phase 3
+![image](https://user-images.githubusercontent.com/22782834/90392322-edee0b80-e08e-11ea-9a72-9067dba930fb.png)
