@@ -9,4 +9,4 @@ FROM openjdk:11
 EXPOSE 8080
 WORKDIR /app
 COPY --from=MAVEN_BUILD /build/target/garage-api.jar /app/ 
-ENTRYPOINT ["java","-jar","garage-api.jar"]
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","garage-api.jar"]

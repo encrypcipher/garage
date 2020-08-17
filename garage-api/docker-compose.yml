@@ -5,15 +5,23 @@ services:
     container_name: "mongodb"
     ports:
     - 27017:27017
-  app:
-   image: mock-api-image
-   ports:
-   - 8083:8083
-  app:
+    
+  mockapi:
+    container_name: "mockapi"
+    image: mock-api-image
+    ports:
+    - 8083:8083
+    
+  garageapi:
     image: garage-api-image
+    container_name: "garageapi"
     ports:
     - 8080:8080
     links:
     - mongodb
+    - mockapi
     depends_on:
-    - mongodb
+    - mockapi
+    
+
+
