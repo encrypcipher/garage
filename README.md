@@ -44,7 +44,7 @@ With Docker: <br>
   |No| Operation | Endpoint | Method |Phase|
 |----|---|---|---|---|
 |1| get warehouses  cars   |/warehouses | GET |phase 1|
-|2| get traffic results | /traffic | GET |phase 2|
+|2| get 3rd party traffic results | /traffic | GET |phase 2|
 |3|  add car | /cars |POST |phase 3|
 |4|  update car | /cars |PUT |phase 3|
 |5|  delete car | /cars/{id} |DELETE |phase 3|
@@ -66,7 +66,7 @@ Response :
 }]
   
 ```
-## 2. get traffic results
+## 2. get traffic results of 3rd party API
 - URI: /traffic
 - Method: GET
 <br>
@@ -174,7 +174,7 @@ With Docker: <br>
 
 ## Approach:
 - A single page application and pure component based approach.  And runs in a containerized environment.
-- A service layer to interact with the API to fetch the results.
+- A service layer to interact with the API to fetch the results. 3rd Party API : https://api.jsonbin.io/b/5ebe673947a2266b1478d892
 - Phase 1: Display of all cars: car-diplay components displays the cars from franks garage sorted baesd on date added
 - Phase 2: show details of a car: car-details compnent displays the details of a particular car
 - phase 3: shpping cart: shopping-car component is display the cars added by user to checkout 
