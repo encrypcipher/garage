@@ -173,7 +173,7 @@ With Docker: <br>
    - Base URL: http://localhost:4200
 
 ## Approach:
-- A single page application and pure component based approach.
+- A single page application and pure component based approach.  And runs in a containerized environment.
 - A service layer to interact with the API to fetch the results.
 - Phase 1: Display of all cars: car-diplay components displays the cars from franks garage sorted baesd on date added
 - Phase 2: show details of a car: car-details compnent displays the details of a particular car
