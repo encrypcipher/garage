@@ -15,17 +15,11 @@
 With Docker: <br>
    - Need to have git installed. Clone the project: git clone https://github.com/vishnuvuyyur1/garage.git
    - Need to have docker installed. <br>
-   Run Database<br>
-   - Step1: pull the image - docker pull mongo
-   - Step2: Run the DB - docker run -d -p 27017-27019:27017-27019 --name mongodb mongo <br>
-   Run Mock Api<br>
    - Command prompt: From insider the project folder mock-api
    - Step1: build the project : docker build -t mock-api-image .
-   - Step1: run the api: docker run --name mock-api-container -d -p 8083:8083 mock-api-image <br>
-   Run garage API <br>
    - Command prompt: From insider the project folder garage-api
-   - Step1: build the project : docker build -t garage-api-image .
-   - Step1: run the api: docker run --name garage-api-container -d -p 8080:8080 garage-api-image
+   - Step2: build the project : docker build -t garage-api-image .
+   - Step3: docker-compose up (Starts the mongoDB, mock-api, garage-api)
    - Base URL: http://localhost:8080/garage/api/v1
    
 ## Approach:
@@ -45,8 +39,8 @@ With Docker: <br>
    user name: user <br>
    password: password <br>
   - API Health check: http://localhost:8080/garage/api/v1/actuator/health
-  - 3rd Party Metrics: http://localhost:8080/actuator/metrics/http.client.requests
-  - API Metrics: http://localhost:8080/actuator/metrics/http.server.requests
+  - 3rd Party Metrics: http://localhost:8080/garage/api/v1/actuator/metrics/http.client.requests
+  - API Metrics: http://localhost:8080/garage/api/v1/actuator/metrics/http.server.requests
 
    
      API Operations:
@@ -202,6 +196,10 @@ Response : none
 With Docker: <br>
    - Need to have git installed. Clone the project: git clone https://github.com/vishnuvuyyur1/garage.git
    - Need to have docker installed. <br>
+   Run Mock Api: If not already running from above<br>
+   - Command prompt: From insider the project folder mock-api
+   - Step1: build the project : docker build -t mock-api-image .
+   - Step1: run the api: docker run --name mock-api-container -d -p 8083:8083 mock-api-image <br>
    Run APP <br>
    - Command prompt: From insider the project folder garage-app
    - Step1: build the project : docker build -t garage-app-image .
@@ -224,3 +222,8 @@ Results:<br>
 ![image](https://user-images.githubusercontent.com/22782834/90392255-d020a680-e08e-11ea-92b1-26dd3dc1cfae.png)
 - phase 3
 ![image](https://user-images.githubusercontent.com/22782834/90392322-edee0b80-e08e-11ea-9a72-9067dba930fb.png)
+
+## Useful docker commands for independent DB contianers to work with other apis  
+ Run Database<br>
+   - Step1: pull the image - docker pull mongo
+   - Step2: Run the DB - docker run -d -p 27017-27019:27017-27019 --name mongodb mongo <br>
