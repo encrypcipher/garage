@@ -24,7 +24,7 @@ With Docker: <br>
    - Step1: run the api: docker run --name mock-api-container -d -p 8083:8083 mock-api-image <br>
    Run garage API <br>
    - Command prompt: From insider the project folder garage-api
-   - Step1: build the project : docker build -t garaga-api-image .
+   - Step1: build the project : docker build -t garage-api-image .
    - Step1: run the api: docker run --name garage-api-container -d -p 8080:8080 garage-api-image
    - Base URL: http://localhost:8080/garage/api/v1
    
