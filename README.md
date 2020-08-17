@@ -39,7 +39,6 @@ With Docker: <br>
    user name: user <br>
    password: password <br>
   - API Health check: http://localhost:8080/garage/api/v1/actuator/health
-  - 3rd Party Metrics: http://localhost:8080/garage/api/v1/actuator/metrics/http.client.requests
   - API Metrics: http://localhost:8080/garage/api/v1/actuator/metrics/http.server.requests
 
    
