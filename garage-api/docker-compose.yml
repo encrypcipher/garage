@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: "mongodb"
+    ports:
+    - 27017:27017
+  app:
+   image: mock-api-image
+   ports:
+   - 8083:8083
+  app:
+    image: garage-api-image
+    ports:
+    - 8080:8080
+    links:
+    - mongodb
+    depends_on:
+    - mongodb
