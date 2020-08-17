@@ -212,7 +212,7 @@ With Docker: <br>
 - Phase 2: show details of a car: car-details compnent displays the details of a particular car
 - phase 3: shpping cart: shopping-car component is display the cars added by user to checkout 
 - Includes navigation : when a user clicks on view details of a particular car we navigate to anoter route to display the results, and user go back to cars diplay. The reason for this mechanish is to fetch fresh load of cars every time a user navigates to cars display.
-- Additional Futures: Search, sort, pagination, control to dispay no of cars 10,20,30 etc 
+- Additional Futures: Search, sort, pagination, control to dispay no of cars 10,25,50 etc 
 
 Results:<br>
 - Phase 1<br>
