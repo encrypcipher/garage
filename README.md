@@ -19,7 +19,7 @@ With Docker: <br>
    - Step1: build the project : docker build -t mock-api-image .
    - Command prompt: From insider the project folder garage-api
    - Step2: build the project : docker build -t garage-api-image .
-   - Step3: docker-compose up (Starts the mongoDB, mock-api, garage-api)
+   - Step3: docker-compose up (pulls image and starts the mongoDB, starts mock-api, garage-api)
    - Base URL: http://localhost:8080/garage/api/v1
    
 ## Approach:
