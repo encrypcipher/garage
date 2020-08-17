@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://api.jsonbin.io/b/5ebe673947a2266b1478d892'
+  apiUrl: 'http://localhost:8083/mock/garages'
+  //apiUrl: 'https://api.jsonbin.io/b/5ebe673947a2266b1478d892'
 };
 
 /*
