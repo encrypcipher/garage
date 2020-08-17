@@ -18,7 +18,7 @@ public class MockApiApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedMethods("GET").allowedOrigins("http://localhost:4200")
+				registry.addMapping("/**").allowedMethods("GET").allowedOrigins("http://localhost:4200","http://localhost:8080")
 						.allowedHeaders("*");
 			}
 		};

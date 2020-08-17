@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Controller: Reads the mock json form a file and returns the response
+ *
+ */
 @RestController
 @RequestMapping("/mock")
 public class MockController {
