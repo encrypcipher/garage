@@ -41,9 +41,13 @@ With Docker: <br>
  ## End points:
    3rd Party API :  http://localhost:8080/mock/garages returns a mock json referred from  https://api.jsonbin.io/b/5ebe673947a2266b1478d892 <br>
    API Base URL: http://localhost:8080/garage/api/v1 <br>
-   Authentication: Basic<br>
+   Basic Authentication<br>
    user name: user <br>
    password: password <br>
+  - API Health check: http://localhost:8080/garage/api/v1/actuator/health
+  - 3rd Party Metrics: http://localhost:8080/actuator/metrics/http.client.requests
+  - API Metrics: http://localhost:8080/actuator/metrics/http.server.requests
+
    
      API Operations:
   
@@ -55,7 +59,7 @@ With Docker: <br>
 |4|  update car | /cars |PUT |phase 3|
 |5|  delete car | /cars/{id} |DELETE |phase 3|
 
-## 1. get warehouses cars
+## 1. get warehouses cars: Interacts with 3rd party API (Mocki ApI)
 - URI: /warehouses
 - Method: GET
 <br>
