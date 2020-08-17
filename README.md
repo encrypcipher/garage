@@ -44,7 +44,7 @@ With Docker: <br>
   |No| Operation | Endpoint | Method |Phase|
 |----|---|---|---|---|
 |1| get warehouses  cars   |/warehouses | GET |phase 1|
-|2| get traffic results | /traffic | GET |phase 2|
+|2| get 3rd party traffic results | /traffic | GET |phase 2|
 |3|  add car | /cars |POST |phase 3|
 |4|  update car | /cars |PUT |phase 3|
 |5|  delete car | /cars/{id} |DELETE |phase 3|
@@ -66,7 +66,7 @@ Response :
 }]
   
 ```
-## 2. get traffic results
+## 2. get traffic results of 3rd party API
 - URI: /traffic
 - Method: GET
 <br>
