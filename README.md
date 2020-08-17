@@ -63,13 +63,39 @@ Request Body : None
 
 Response :
 ```
- [{
-    "id":1,
-    "year": 2002,
-    "model": "swift",
-    "make": "suzuki",
-    "price": 1299.99
-}]
+[
+    {
+        "id": 57,
+        "year": 1996,
+        "model": "Q",
+        "make": "Infiniti",
+        "price": 28773.14
+    },
+    {
+        "id": 56,
+        "year": 1994,
+        "model": "del Sol",
+        "make": "Honda",
+        "price": 18840.96
+    },
+    {
+        "id": 73,
+        "year": 2010,
+        "model": "Legacy",
+        "make": "Subaru",
+        "price": 24491.8
+    },
+    {
+        "id": 75,
+        "year": 1985,
+        "model": "Skyhawk",
+        "make": "Buick",
+        "price": 10567.27
+    },
+    .
+    .
+    .
+ ]
   
 ```
 ## 2. get traffic results of 3rd party API
