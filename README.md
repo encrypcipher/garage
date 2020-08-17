@@ -151,3 +151,40 @@ Response
 - Method: DELETE<br>
 
 Response : none
+
+# APP Documentation
+## Technology stack
+  - Angular 9
+  - css
+  - Bootstarp 4
+  - Type Script
+  - npm Build
+  - Environment: Browsers (google chrome, firefox etc)
+  - Deploymnet: Docker container
+  
+  ## Instructions to run
+With Docker: <br>
+   - Need to have git installed. Clone the project: git clone https://github.com/vishnuvuyyur1/garage.git
+   - Need to have docker installed. <br>
+   Run APP <br>
+   - Command prompt: From insider the project folder garage-app
+   - Step1: build the project : docker build -t garage-app-image .
+   - Step1: run the api: docker run --name garage-app-container -d -p 4200:80 garage-app-image
+   - Base URL: http://localhost:4200
+
+## Approach:
+- A single page application and pure component based approach.
+- A service layer to interact with the API to fetch the results.
+- Phase 1: Display of all cars: car-diplay components displays the cars from franks garage sorted baesd on date added
+- Phase 2: show details of a car: car-details compnent displays the details of a particular car
+- phase 3: shpping cart: shopping-car component is display the cars added by user to checkout 
+- Includes navigation : when a user clicks on view details of a particular car we navigate to anoter route to display the results, and user go back to cars diplay. The reason for this mechanish is to fetch fresh load of cars every time a user navigates to cars display.
+- Additional Futures: Search, sort, pagination, control to dispay no of cars 10,20,30 etc 
+
+Results:<br>
+- Phase 1<br>
+![image](https://user-images.githubusercontent.com/22782834/90391992-5b4d6c80-e08e-11ea-88bd-0d6cf5f68bc5.png)
+- phase 2
+![image](https://user-images.githubusercontent.com/22782834/90392255-d020a680-e08e-11ea-92b1-26dd3dc1cfae.png)
+- phase 3
+![image](https://user-images.githubusercontent.com/22782834/90392322-edee0b80-e08e-11ea-9a72-9067dba930fb.png)
