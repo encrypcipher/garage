@@ -1,6 +1,6 @@
 # Frank's garage
 - Architecture <br>
-![garage](https://user-images.githubusercontent.com/22782834/90341211-f3e7dc00-dffd-11ea-9a6c-63952fa61247.png)
+![garage](https://user-images.githubusercontent.com/22782834/90405684-657a6580-e0a4-11ea-94ca-1b92429965ba.png)
 
 # API Documentation
 ## Technology stack
@@ -18,7 +18,11 @@ With Docker: <br>
    Run Database<br>
    - Step1: pull the image - docker pull mongo
    - Step2: Run the DB - docker run -d -p 27017-27019:27017-27019 --name mongodb mongo <br>
-   Run API <br>
+   Run Mock Api<br>
+   - Command prompt: From insider the project folder mock-api
+   - Step1: build the project : docker build -t mock-api-image .
+   - Step1: run the api: docker run --name mock-api-container -d -p 8083:8083 mock-api-image <br>
+   Run garage API <br>
    - Command prompt: From insider the project folder garage-api
    - Step1: build the project : docker build -t garaga-api-image .
    - Step1: run the api: docker run --name garage-api-container -d -p 8080:8080 garage-api-image
@@ -27,14 +31,14 @@ With Docker: <br>
 ## Approach:
 - A microservice with its own database with a well defined set of functinatlity. And runs in a containerized environment.
 - A reactive approach down to the databse to enable the API respond in a non-blocking and event based to improve performance.
-- Used spring web flux to reactively interact with 3rd party apis, using this library enables our client to perform HTTP requests and providing asynchronous behaviour i.e the rest call need not wait till response comes back. Instead when there is a response, a notification will be provided.
+- Used spring web flux to reactively interact with 3rd party apis (mock-api), using this library enables our client to perform HTTP requests and providing asynchronous behaviour i.e the rest call need not wait till response comes back. Instead when there is a response, a notification will be provided.
 - Get Response from mock api data which has cars that are grouped under warehouses and aggregate the results of all warehouses by parallel processing to one custom CAR POJO to list all the available cars.
 - By utilizing the parallel processing of data using streams the performance is optimized.
 - Reactive Mongo DB NoSQL database enabling a reactive interaction with DB, a nosql Db is document orientend enables storing of data together in documents.
 
  ## End points:
-   3rd Party API : https://api.jsonbin.io/b/5ebe673947a2266b1478d892 <br>
-   API Base URL: http://localhost:8080/search/api/v1 <br>
+   3rd Party API :  http://localhost:8080/mock/garages returns a mock json referred from  https://api.jsonbin.io/b/5ebe673947a2266b1478d892 <br>
+   API Base URL: http://localhost:8080/garage/api/v1 <br>
    Authentication: Basic<br>
    user name: user <br>
    password: password <br>
@@ -174,7 +178,7 @@ With Docker: <br>
 
 ## Approach:
 - A single page application and pure component based approach.  And runs in a containerized environment.
-- A service layer to interact with the API to fetch the results. 3rd Party API : https://api.jsonbin.io/b/5ebe673947a2266b1478d892
+- A service layer to interact with the API to fetch the results. 3rd Party API : http://localhost:8080/mock/garages returns mockdata reference: http://localhost:8080/mock/garages
 - Phase 1: Display of all cars: car-diplay components displays the cars from franks garage sorted baesd on date added
 - Phase 2: show details of a car: car-details compnent displays the details of a particular car
 - phase 3: shpping cart: shopping-car component is display the cars added by user to checkout 
