@@ -41,13 +41,13 @@ With Docker: <br>
    
      API Operations:
   
-  |No| Operation | Endpoint | Method |
-|----|---|---|---|
-|1| get warehouses  cars   |/warehouses | GET |
-|2| get traffic results | /traffic | GET |
-|3|  add car | /cars |POST |
-|4|  update car | /cars |PUT |
-|5|  delete car | /cars/{id} |DELETE |
+  |No| Operation | Endpoint | Method |Phase|
+|----|---|---|---|---|
+|1| get warehouses  cars   |/warehouses | GET |phase 1|
+|2| get traffic results | /traffic | GET |phase 2|
+|3|  add car | /cars |POST |phase 3|
+|4|  update car | /cars |PUT |phase 3|
+|5|  delete car | /cars/{id} |DELETE |phase 3|
 
 ## 1. get warehouses cars
 - URI: /warehouses
