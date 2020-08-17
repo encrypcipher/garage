@@ -1,4 +1,4 @@
-<div [style.display]="loaded ? 'inherit': 'none'" style="display: none;" class="row mt-5 ml-3">
+<div [style.display]="products.length>0 ? 'inherit': 'none'" style="display: none;" class="row mt-5 ml-3">
     <div class="col-md-10 center">
         <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
             <thead>
@@ -11,10 +11,11 @@
                     <th>Model</th>
                     <th>Price</th>
                     <th>Action</th>
+                    <th>Cart</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let car of cars">
+                <tr *ngFor="let car of products">
                   
                     <td>{{ car.dateAdded }}</td>
                     <td>{{car.id}}</td>
@@ -23,6 +24,7 @@
                     <td>{{ car.model }}</td>
                     <td>{{ car.price }}</td>
                     <td><button [disabled]=!car.licensed (click)="showDetails(car.carDetails)" class="btn btn-primary">View</button></td>
+                    <td><button [disabled]=!car.licensed (click)="addProductToCart(car)" class="btn btn-primary">Add</button></td>
                 </tr>
             </tbody>
         </table>

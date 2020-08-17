@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { CarService } from 'src/app/service/car.service';
 import { Subject } from 'rxjs';
 import { Car } from 'src/app/interface/Car';
@@ -14,7 +14,10 @@ export class CarDiaplayComponent implements OnInit {
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject();
   cars: Array<Car> = [];
+  @Input() products: Array<Car> = [];
   loaded: boolean;
+  @Output() productAdded = new EventEmitter();
+
   constructor(private carService: CarService,
     private router: Router,) { }
 
@@ -22,12 +25,17 @@ export class CarDiaplayComponent implements OnInit {
     this.dtOptions = {
       pagingType: 'full_numbers'
     };
-    this.carService.getCars().subscribe(data => {
-      console.log(data);
-      this.cars = data;
+  }
+
+  ngOnChanges() {
+    if (this.products.length > 0) {
       this.dtTrigger.next();
-      this.loaded = true;
-    });
+    }
+  }
+
+
+  addProductToCart(product) {
+    this.productAdded.emit(product);
   }
 
   showDetails(details) {
