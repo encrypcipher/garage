@@ -25,7 +25,8 @@ With Docker: <br>
 ## Approach:
 - A microservice with its own database with a well defined set of functinatlity. And runs in a containerized environment.
 - A reactive approach down to the databse to enable the API respond in a non-blocking and event based to improve performance.
-- Phase 1 To list all the available cars : Used spring web flux to reactively interact with 3rd party apis (mock-api), using this library enables our client to perform HTTP requests and providing asynchronous behaviour i.e the rest call need not wait till response comes back. Instead when there is a response, a notification will be provided.
+- Phase 1 used a mock-api that returns a json from  a json file. The content of json file is : https://api.jsonbin.io/b/5ebe673947a2266b1478d892
+- To list all the available cars : Used spring web flux to reactively interact with 3rd party apis (mock-api), using this library enables our client to perform HTTP requests and providing asynchronous behaviour i.e the rest call need not wait till response comes back. Instead when there is a response, a notification will be provided.
 - Get Response from mock api data which has cars that are grouped under warehouses and aggregate the results of all warehouses by parallel processing to one list of custom Car POJO.
 - By utilizing the parallel processing of data using streams the performance is optimized.
 - phase 2 Track the traffic: To track the traffic on 3rd party api, used a counter for each request than can result in either 200, 4XX, 5XX. update the counter based on the result from the 3rd part api.
