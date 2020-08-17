@@ -106,8 +106,13 @@ Request Body
 |----|---|---|---|
 |status|string | 200, 4XX, 5XX, TOTAL| yes|
 |trafficCountType|ENUM | MAX,MIN,AVERAGE| yes |
-
-Response : count: Int
+```
+{
+    "status": "200",
+    "trafficCountType": "MAX"
+}
+```
+Response : count: Int, eg 8
 
 ## 3. add car
 - URI: /cars
