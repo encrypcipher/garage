@@ -60,6 +60,6 @@ public class WarehouseDaoTest {
 		
 		RecordedRequest recordedRequest = mockWebServer.takeRequest();
         assertEquals("GET", recordedRequest.getMethod());
-        assertEquals("/b/5ebe673947a2266b1478d892", recordedRequest.getPath());
+        assertEquals("/garages", recordedRequest.getPath());
 	}
 }
