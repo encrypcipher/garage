@@ -1,7 +1,6 @@
 package com.garage.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sun.jdi.Location;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +16,7 @@ public class Warehouse {
 	@JsonProperty("name")
 	private String name;
 	@JsonProperty("location")
-	private Location location;
+	private WarehouseLocation location;
 	@JsonProperty("cars")
 	private WarehouseAssortment cars;
 }

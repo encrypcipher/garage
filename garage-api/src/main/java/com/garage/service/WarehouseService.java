@@ -43,7 +43,7 @@ public class WarehouseService implements IWarehouseService {
 			}
 		}).doFinally(onFinally -> {
 			warehouseTrafficService.increaseCounter(statusConstants.getTotal());
-		}).switchIfEmpty(Mono.just(new ArrayList<>())).map(warehouses -> {
+		}).map(warehouses -> {
 			List<Car> cars = new ArrayList<>();
 			warehouses.parallelStream().forEach((warehouse -> {
 				if (warehouse.getCars() != null && warehouse.getCars().getVehicles() != null) {
