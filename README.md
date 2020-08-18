@@ -34,8 +34,8 @@ With Docker: <br>
 - Reactive Mongo DB NoSQL database enabling a reactive interaction with DB, a nosql Db is document orientend enables storing of data together in documents.
 
  ## End points:
-   3rd Party API :  http://localhost:8080/mock/garages returns a mock json referred from  https://api.jsonbin.io/b/5ebe673947a2266b1478d892 <br>
-   API Base URL: http://localhost:8080/garage/api/v1 <br>
+   Mock API :  http://localhost:8080/mock/garages returns a mock json referred from  https://api.jsonbin.io/b/5ebe673947a2266b1478d892 <br>
+   Garage API Base URL: http://localhost:8080/garage/api/v1 <br>
    Basic Authentication<br>
    user name: user <br>
    password: password <br>
