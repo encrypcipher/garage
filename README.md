@@ -39,11 +39,11 @@ With Docker: <br>
    Basic Authentication<br>
    user name: user <br>
    password: password <br>
-  - API Health check: http://localhost:8080/garage/api/v1/actuator/health
-  - API Metrics: http://localhost:8080/garage/api/v1/actuator/metrics/http.server.requests
+  -  Garage API Health check: http://localhost:8080/garage/api/v1/actuator/health
+  -  Garage API API Metrics: http://localhost:8080/garage/api/v1/actuator/metrics/http.server.requests
 
    
-     API Operations:
+  Garage API Operations:
   
   |No| Operation | Endpoint | Method |Phase|
 |----|---|---|---|---|
