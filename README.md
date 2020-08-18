@@ -29,7 +29,7 @@ With Docker: <br>
 - To list all the available cars : Used spring web flux to reactively interact with 3rd party apis (mock-api), using this library enables our client to perform HTTP requests and providing asynchronous behaviour i.e the rest call need not wait till response comes back. Instead when there is a response, a notification will be provided.
 - Get Response from mock api data which has cars that are grouped under warehouses and aggregate the results of all warehouses by parallel processing to one list of custom Car POJO.
 - By utilizing the parallel processing of data using streams the performance is optimized.
-- phase 2 Track the traffic: To track the traffic on 3rd party api, used a counter for each request than can result in either 200, 4XX, 5XX. update the counter based on the result from the 3rd part api in DB.
+- phase 2 Track the traffic: To track the traffic on 3rd party api, used a counter for each request than can result in either 200, 4XX, 5XX. update the counter based on the result from the 3rd party api(mock-api) in DB.
 - phase 3 Allow Frank to add, update, delete car to the store. A collection with Car is used for this purpose.  Used mongo NoSQL Db.
 - Reactive Mongo DB NoSQL database enabling a reactive interaction with DB, a nosql Db is document orientend enables storing of data together in documents.
 
