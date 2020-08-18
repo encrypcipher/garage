@@ -213,10 +213,11 @@ With Docker: <br>
 
 ## Approach:
 - A single page application and pure component based approach.  And runs in a containerized environment.
-- A service layer to interact with the API to fetch the results. 3rd Party API : http://localhost:8080/mock/garages returns mockdata reference: http://localhost:8080/mock/garages
+- A service layer to interact with the API to fetch the results. 3rd Party API : http://localhost:8080/mock/garages returns mockdata reference: https://api.jsonbin.io/b/5ebe673947a2266b1478d892
 - Phase 1: Display of all cars: car-diplay components displays the cars from franks garage sorted baesd on date added
 - Phase 2: show details of a car: car-details compnent displays the details of a particular car
-- phase 3: shpping cart: shopping-car component is display the cars added by user to checkout 
+- phase 3: shpping cart: shopping-cart component is display the cars added by user to checkout 
+- car-board component: a parent component with two child components car-diaply, shopping-cart and handels the communication between child components. 
 - Includes navigation : when a user clicks on view details of a particular car we navigate to anoter route to display the results, and user go back to cars diplay. The reason for this mechanish is to fetch fresh load of cars every time a user navigates to cars display.
 - Additional Futures: Search, sort, pagination, control to dispay no of cars 10,25,50 etc 
 
